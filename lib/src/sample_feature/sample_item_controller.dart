@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../database/database_service.dart';
+import 'package:sqflite_demo/src/database/database_service.dart';
 
 class SampleItemController with ChangeNotifier {
   List<Map<String, dynamic>> _items = [];
