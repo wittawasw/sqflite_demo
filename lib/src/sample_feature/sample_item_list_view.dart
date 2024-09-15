@@ -68,7 +68,7 @@ class _SampleItemListViewState extends State<SampleItemListView> {
 
           if (newItem != null) {
             await _controller.addItem(newItem);
-            setState(() {});
+            _loadItems();
           }
         },
         child: const Icon(Icons.add),
