@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'database_service.dart';
+import '../database/database_service.dart';
 
-class ItemController with ChangeNotifier {
+class SampleItemController with ChangeNotifier {
   List<Map<String, dynamic>> _items = [];
 
   List<Map<String, dynamic>> get items => _items;
