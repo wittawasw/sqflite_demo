@@ -2,8 +2,13 @@ import 'package:flutter/material.dart';
 
 class SampleItemForm extends StatefulWidget {
   final Map<String, dynamic> sampleItem;
+  final Function(Map<String, dynamic>)? onSubmit;
 
-  const SampleItemForm({super.key, required this.sampleItem});
+  const SampleItemForm({
+    super.key,
+    required this.sampleItem,
+    this.onSubmit,
+  });
 
   @override
   State<SampleItemForm> createState() => _SampleItemFormState();
@@ -59,7 +64,7 @@ class _SampleItemFormState extends State<SampleItemForm> {
               if (_formKey.currentState!.validate()) {
                 _formKey.currentState!.save();
 
-                final newItem = {
+                final savedItem = {
                   'id': widget.sampleItem['id'] ??
                       DateTime.now().millisecondsSinceEpoch,
                   'name': _name,
@@ -67,7 +72,11 @@ class _SampleItemFormState extends State<SampleItemForm> {
                   'price': _price,
                 };
 
-                Navigator.pop(context, newItem);
+                if (widget.onSubmit != null) {
+                  widget.onSubmit!(savedItem);
+                }
+
+                Navigator.pop(context, savedItem);
               }
             },
             child: const Text('Add Item'),

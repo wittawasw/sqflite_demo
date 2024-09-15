@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sqflite_demo/src/sample_feature/sample_item_controller.dart';
+import 'package:sqflite_demo/src/sample_feature/sample_item_edit_view.dart';
 
 /// Displays detailed information about a SampleItem.
 class SampleItemDetailsView extends StatefulWidget {
@@ -30,6 +31,19 @@ class _SampleItemDetailsViewState extends State<SampleItemDetailsView> {
     });
   }
 
+  void _editItem() async {
+    final updatedItem = await Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => SampleItemEditView(item: item!),
+      ),
+    );
+
+    if (updatedItem != null) {
+      await _loadItemDetails();
+    }
+  }
+
   Future<void> _deleteItem() async {
     await _controller.deleteItem(widget.id);
     if (widget.onDelete != null) {
@@ -49,6 +63,10 @@ class _SampleItemDetailsViewState extends State<SampleItemDetailsView> {
             ? const Text('Loading...')
             : Text('ID: ${item!['id']} - ${item!['name']}'),
         actions: [
+          IconButton(
+            icon: const Icon(Icons.edit),
+            onPressed: _editItem,
+          ),
           IconButton(
             icon: const Icon(Icons.delete),
             onPressed: item == null
