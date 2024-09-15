@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sqflite_demo/src/sample_feature/sample_item_controller.dart';
 import 'package:sqflite_demo/src/sample_feature/sample_item_details_view.dart';
+import 'package:sqflite_demo/src/sample_feature/sample_item_new_view.dart';
 
 /// Displays a list of SampleItems.
 class SampleItemListView extends StatefulWidget {
@@ -57,13 +58,17 @@ class _SampleItemListViewState extends State<SampleItemListView> {
             ),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
-          await _controller.addItem({
-            'id': DateTime.now().millisecondsSinceEpoch,
-            'name': 'New Item',
-            'description': 'Sample description',
-            'price': 1,
-          });
-          setState(() {});
+          final newItem = await Navigator.push<Map<String, dynamic>>(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const SampleItemNewView(),
+            ),
+          );
+
+          if (newItem != null) {
+            await _controller.addItem(newItem);
+            setState(() {});
+          }
         },
         child: const Icon(Icons.add),
       ),
