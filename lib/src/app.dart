@@ -9,7 +9,7 @@ import 'settings/settings_controller.dart';
 import 'settings/settings_view.dart';
 
 /// The Widget that configures your application.
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp(
       {super.key,
       required this.databaseService,
@@ -19,13 +19,28 @@ class MyApp extends StatelessWidget {
   final DatabaseService databaseService;
 
   @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  @override
+  // ignore: must_call_super
+  void initState() {
+    initServices();
+  }
+
+  void initServices() async {
+    await DatabaseService.getDatabase();
+  }
+
+  @override
   Widget build(BuildContext context) {
     // Glue the SettingsController to the MaterialApp.
     //
     // The ListenableBuilder Widget listens to the SettingsController for changes.
     // Whenever the user updates their settings, the MaterialApp is rebuilt.
     return ListenableBuilder(
-      listenable: settingsController,
+      listenable: widget.settingsController,
       builder: (BuildContext context, Widget? child) {
         return MaterialApp(
           // Providing a restorationScopeId allows the Navigator built by the
@@ -60,7 +75,7 @@ class MyApp extends StatelessWidget {
           // SettingsController to display the correct theme.
           theme: ThemeData(),
           darkTheme: ThemeData.dark(),
-          themeMode: settingsController.themeMode,
+          themeMode: widget.settingsController.themeMode,
 
           // Define a function to handle named routes in order to support
           // Flutter web url navigation and deep linking.
@@ -70,12 +85,12 @@ class MyApp extends StatelessWidget {
               builder: (BuildContext context) {
                 switch (routeSettings.name) {
                   case SettingsView.routeName:
-                    return SettingsView(controller: settingsController);
+                    return SettingsView(controller: widget.settingsController);
                   case SampleItemDetailsView.routeName:
                     return const SampleItemDetailsView();
                   case SampleItemListView.routeName:
                   default:
-                    return const SampleItemListView();
+                    return SampleItemListView();
                 }
               },
             );
