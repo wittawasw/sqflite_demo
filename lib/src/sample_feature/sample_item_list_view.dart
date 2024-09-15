@@ -50,7 +50,9 @@ class _SampleItemListViewState extends State<SampleItemListView> {
                         builder: (context) => SampleItemDetailsView(
                             id: item['id'], onDelete: _loadItems),
                       ),
-                    );
+                    ).then((_) {
+                      _loadItems();
+                    });
                   },
                 );
               },
