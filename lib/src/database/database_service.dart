@@ -17,7 +17,14 @@ class DatabaseService {
       path,
       onCreate: (db, version) {
         return db.execute(
-          'CREATE TABLE items(id INTEGER PRIMARY KEY, name TEXT)',
+          '''
+            CREATE TABLE sample_items(
+              id INTEGER PRIMARY KEY,
+              name TEXT,
+              description TEXT,
+              price INTEGER
+            )
+          ''',
         );
       },
       version: 1,
@@ -27,18 +34,18 @@ class DatabaseService {
   // CRUD methods
   Future<void> insertItem(Map<String, dynamic> item) async {
     final db = await getDatabase();
-    await db.insert('items', item);
+    await db.insert('sample_items', item);
   }
 
   Future<List<Map<String, dynamic>>> getItems() async {
     final db = await getDatabase();
-    return await db.query('items');
+    return await db.query('sample_items');
   }
 
   Future<void> updateItem(Map<String, dynamic> item) async {
     final db = await getDatabase();
     await db.update(
-      'items',
+      'sample_items',
       item,
       where: 'id = ?',
       whereArgs: [item['id']],
@@ -48,7 +55,7 @@ class DatabaseService {
   Future<void> deleteItem(int id) async {
     final db = await getDatabase();
     await db.delete(
-      'items',
+      'sample_items',
       where: 'id = ?',
       whereArgs: [id],
     );
