@@ -44,12 +44,11 @@ class _SampleItemListViewState extends State<SampleItemListView> {
                   subtitle: Text(item['description']),
                   trailing: Text(item['price'].toString()),
                   onTap: () {
-                    // Navigate to the SampleItemDetailsView and pass the item's ID
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) =>
-                            SampleItemDetailsView(id: item['id']),
+                        builder: (context) => SampleItemDetailsView(
+                            id: item['id'], onDelete: _loadItems),
                       ),
                     );
                   },

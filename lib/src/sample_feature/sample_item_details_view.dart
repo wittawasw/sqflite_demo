@@ -4,7 +4,8 @@ import 'package:sqflite_demo/src/sample_feature/sample_item_controller.dart';
 /// Displays detailed information about a SampleItem.
 class SampleItemDetailsView extends StatefulWidget {
   final int id;
-  const SampleItemDetailsView({super.key, required this.id});
+  final VoidCallback? onDelete;
+  const SampleItemDetailsView({super.key, required this.id, this.onDelete});
 
   static const routeName = '/sample_item';
 
@@ -29,6 +30,17 @@ class _SampleItemDetailsViewState extends State<SampleItemDetailsView> {
     });
   }
 
+  Future<void> _deleteItem() async {
+    await _controller.deleteItem(widget.id);
+    if (widget.onDelete != null) {
+      widget.onDelete!();
+    }
+
+    if (mounted) {
+      Navigator.pop(context);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,6 +48,40 @@ class _SampleItemDetailsViewState extends State<SampleItemDetailsView> {
         title: item == null
             ? const Text('Loading...')
             : Text('ID: ${item!['id']} - ${item!['name']}'),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.delete),
+            onPressed: item == null
+                ? null
+                : () {
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: const Text('Delete Item'),
+                          content: const Text(
+                              'Are you sure you want to delete this item?'),
+                          actions: [
+                            TextButton(
+                              onPressed: () {
+                                Navigator.pop(context); // Cancel delete
+                              },
+                              child: const Text('Cancel'),
+                            ),
+                            TextButton(
+                              onPressed: () {
+                                Navigator.pop(context); // Close the dialog
+                                _deleteItem(); // Delete the item
+                              },
+                              child: const Text('Delete'),
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                  },
+          ),
+        ],
       ),
       body: item == null
           ? const Center(child: CircularProgressIndicator())
