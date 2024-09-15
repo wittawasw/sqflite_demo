@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sqflite_demo/src/sample_feature/sample_item_controller.dart';
+import 'package:sqflite_demo/src/sample_feature/sample_item_details_view.dart';
 
 /// Displays a list of SampleItems.
 class SampleItemListView extends StatefulWidget {
@@ -41,6 +42,16 @@ class _SampleItemListViewState extends State<SampleItemListView> {
                   title: Text(item['name']),
                   subtitle: Text(item['description']),
                   trailing: Text(item['price'].toString()),
+                  onTap: () {
+                    // Navigate to the SampleItemDetailsView and pass the item's ID
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            SampleItemDetailsView(id: item['id']),
+                      ),
+                    );
+                  },
                 );
               },
             ),

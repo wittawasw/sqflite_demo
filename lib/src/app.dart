@@ -87,10 +87,12 @@ class _MyAppState extends State<MyApp> {
                   case SettingsView.routeName:
                     return SettingsView(controller: widget.settingsController);
                   case SampleItemDetailsView.routeName:
-                    return const SampleItemDetailsView();
+                    // Ensure the route has the 'id' argument in routeSettings
+                    final int itemId = routeSettings.arguments as int;
+                    return SampleItemDetailsView(id: itemId);
                   case SampleItemListView.routeName:
                   default:
-                    return SampleItemListView();
+                    return const SampleItemListView();
                 }
               },
             );
