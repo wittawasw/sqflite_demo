@@ -1,28 +1,29 @@
 import 'package:flutter/material.dart';
-import 'package:sqflite_demo/src/database/database_service.dart';
+import 'package:sqflite_demo/src/sample_feature/sample_item_service.dart';
 
 class SampleItemController with ChangeNotifier {
-  List<Map<String, dynamic>> _items = [];
+  final _service = SampleItemService();
 
+  List<Map<String, dynamic>> _items = [];
   List<Map<String, dynamic>> get items => _items;
 
   Future<void> loadItems() async {
-    _items = await DatabaseService().getItems();
+    _items = await _service.getItems();
     notifyListeners();
   }
 
   Future<void> addItem(Map<String, dynamic> item) async {
-    await DatabaseService().insertItem(item);
+    await _service.insertItem(item);
     loadItems();
   }
 
   Future<void> updateItem(Map<String, dynamic> item) async {
-    await DatabaseService().updateItem(item);
+    await _service.updateItem(item);
     loadItems();
   }
 
   Future<void> deleteItem(int id) async {
-    await DatabaseService().deleteItem(id);
+    await _service.deleteItem(id);
     loadItems();
   }
 }
