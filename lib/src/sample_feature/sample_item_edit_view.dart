@@ -26,6 +26,7 @@ class SampleItemEditView extends StatelessWidget {
         child: SampleItemForm(
           sampleItem: item,
           onSubmit: handleSubmit,
+          submitText: 'Update',
         ),
       ),
     );

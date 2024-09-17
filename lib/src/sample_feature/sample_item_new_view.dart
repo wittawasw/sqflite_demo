@@ -21,7 +21,8 @@ class SampleItemNewView extends StatelessWidget {
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: SampleItemForm(sampleItem: newSampleItem),
+        child:
+            SampleItemForm(sampleItem: newSampleItem, submitText: 'Add Item'),
       ),
     );
   }

@@ -3,12 +3,14 @@ import 'package:flutter/material.dart';
 class SampleItemForm extends StatefulWidget {
   final Map<String, dynamic> sampleItem;
   final Function(Map<String, dynamic>)? onSubmit;
+  final String submitText;
 
   const SampleItemForm({
     super.key,
     required this.sampleItem,
     this.onSubmit,
-  });
+    String? submitText,
+  }) : submitText = submitText ?? 'Submit';
 
   @override
   State<SampleItemForm> createState() => _SampleItemFormState();
@@ -79,7 +81,7 @@ class _SampleItemFormState extends State<SampleItemForm> {
                 Navigator.pop(context, savedItem);
               }
             },
-            child: const Text('Add Item'),
+            child: Text(widget.submitText),
           ),
         ],
       ),
