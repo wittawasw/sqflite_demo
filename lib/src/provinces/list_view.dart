@@ -36,10 +36,6 @@ class _ProvincesListViewState extends State<ProvincesListView> {
               itemCount: _controller.items.length,
               itemBuilder: (context, index) {
                 final item = _controller.items[index];
-                print(item);
-                print(item);
-                print(item);
-                print(item);
 
                 return ListTile(
                   title: Text(item['name_th']),
