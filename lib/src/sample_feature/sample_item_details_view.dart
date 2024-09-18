@@ -8,7 +8,7 @@ class SampleItemDetailsView extends StatefulWidget {
   final VoidCallback? onDelete;
   const SampleItemDetailsView({super.key, required this.id, this.onDelete});
 
-  static const routeName = '/sample_item';
+  static const routeName = '/sample_items/details';
 
   @override
   State<SampleItemDetailsView> createState() => _SampleItemDetailsViewState();

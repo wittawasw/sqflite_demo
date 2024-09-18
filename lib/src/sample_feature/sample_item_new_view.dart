@@ -4,7 +4,7 @@ import 'sample_item_form.dart';
 class SampleItemNewView extends StatelessWidget {
   const SampleItemNewView({super.key});
 
-  static const routeName = '/sample_item/new';
+  static const routeName = '/sample_items/new';
 
   @override
   Widget build(BuildContext context) {

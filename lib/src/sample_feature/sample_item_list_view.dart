@@ -7,7 +7,7 @@ import 'package:sqflite_demo/src/sample_feature/sample_item_new_view.dart';
 class SampleItemListView extends StatefulWidget {
   const SampleItemListView({super.key});
 
-  static const routeName = '/';
+  static const routeName = '/sample_items';
 
   @override
   State<SampleItemListView> createState() => _SampleItemListViewState();

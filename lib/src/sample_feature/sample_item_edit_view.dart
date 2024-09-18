@@ -7,7 +7,7 @@ class SampleItemEditView extends StatelessWidget {
 
   const SampleItemEditView({super.key, required this.item});
 
-  static const routeName = '/sample_item/edit';
+  static const routeName = '/sample_items/edit';
 
   @override
   Widget build(BuildContext context) {
