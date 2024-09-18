@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sqflite_demo/src/provinces/list_view.dart';
 import 'package:sqflite_demo/src/sample_feature/sample_item_list_view.dart';
 import 'package:sqflite_demo/src/settings/settings_view.dart';
 
@@ -30,9 +31,12 @@ class HomeScreen extends StatelessWidget {
               Navigator.pushNamed(context, SampleItemListView.routeName);
             },
           ),
-          const ListTile(
-            title: Text('Sample DB'),
-            subtitle: Text('Example of items from DB'),
+          ListTile(
+            title: const Text('Sample DB'),
+            subtitle: const Text('Example of items from DB'),
+            onTap: () {
+              Navigator.pushNamed(context, ProvincesListView.routeName);
+            },
           ),
         ],
       ),

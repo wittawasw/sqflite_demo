@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:flutter/services.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -29,5 +32,21 @@ class DatabaseService {
       },
       version: 1,
     );
+  }
+
+  static Future<Database> loadDatabase() async {
+    String dbPath = join(await getDatabasesPath(), 'tambons.db');
+
+    bool exists = await databaseExists(dbPath);
+
+    if (!exists) {
+      ByteData data = await rootBundle.load('assets/tambons.db');
+      List<int> bytes =
+          data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
+
+      await File(dbPath).writeAsBytes(bytes);
+    }
+
+    return openDatabase(dbPath);
   }
 }

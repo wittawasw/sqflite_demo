@@ -3,6 +3,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:sqflite_demo/src/database/database_service.dart';
 import 'package:sqflite_demo/src/home/screen.dart';
+import 'package:sqflite_demo/src/provinces/list_view.dart';
 
 import 'sample_feature/sample_item_details_view.dart';
 import 'sample_feature/sample_item_list_view.dart';
@@ -93,6 +94,8 @@ class _MyAppState extends State<MyApp> {
                     return SampleItemDetailsView(id: itemId);
                   case SampleItemListView.routeName:
                     return const SampleItemListView();
+                  case ProvincesListView.routeName:
+                    return const ProvincesListView();
                   default:
                     return const HomeScreen();
                 }
