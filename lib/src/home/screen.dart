@@ -20,12 +20,10 @@ class HomeScreen extends StatelessWidget {
             onTap: () {
               Navigator.pushNamed(context, SampleItemListView.routeName);
             },
-            // trailing: Text('\$10'),
           ),
           const ListTile(
             title: Text('Sample DB'),
             subtitle: Text('Example of items from DB'),
-            // trailing: Text('\$20'),
           ),
         ],
       ),
