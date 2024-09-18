@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sqflite_demo/src/sample_feature/sample_item_list_view.dart';
+import 'package:sqflite_demo/src/settings/settings_view.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -9,9 +10,14 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Home'),
-      ),
+      appBar: AppBar(title: const Text('Home'), actions: [
+        IconButton(
+          icon: const Icon(Icons.settings),
+          onPressed: () {
+            Navigator.restorablePushNamed(context, SettingsView.routeName);
+          },
+        ),
+      ]),
       body: ListView(
         children: [
           ListTile(
