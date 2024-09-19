@@ -38,9 +38,9 @@ class _ProvincesListViewState extends State<ProvincesListView> {
                 final item = _controller.items[index];
 
                 return ListTile(
-                  title: Text(item['name_th']),
-                  subtitle: Text(item['name_en']),
-                  trailing: Text(item['code']),
+                  title: Text(item.nameTH),
+                  subtitle: Text(item.nameEN),
+                  trailing: Text(item.code),
                 );
               },
             ),
