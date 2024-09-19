@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'sample_item_form.dart';
+import 'package:sqflite_demo/src/sample_feature/sample_item.dart';
+import 'package:sqflite_demo/src/sample_feature/sample_item_form.dart';
 
 class SampleItemNewView extends StatelessWidget {
   const SampleItemNewView({super.key});
@@ -8,12 +9,8 @@ class SampleItemNewView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Map<String, dynamic> newSampleItem = {
-      'id': DateTime.now().millisecondsSinceEpoch,
-      'name': '',
-      'description': '',
-      'price': 0.0,
-    };
+    final SampleItem newSampleItem =
+        SampleItem(DateTime.now().millisecondsSinceEpoch, '', '', 0);
 
     return Scaffold(
       appBar: AppBar(

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:sqflite_demo/src/sample_feature/sample_item.dart';
 
 class SampleItemForm extends StatefulWidget {
-  final Map<String, dynamic> sampleItem;
+  final SampleItem sampleItem;
   final Function(Map<String, dynamic>)? onSubmit;
   final String submitText;
 
@@ -25,9 +26,9 @@ class _SampleItemFormState extends State<SampleItemForm> {
   @override
   void initState() {
     super.initState();
-    _name = widget.sampleItem['name'] ?? '';
-    _description = widget.sampleItem['description'] ?? '';
-    _price = widget.sampleItem['price']?.toInt() ?? 0;
+    _name = widget.sampleItem.name;
+    _description = widget.sampleItem.description;
+    _price = widget.sampleItem.price;
   }
 
   @override
@@ -67,8 +68,7 @@ class _SampleItemFormState extends State<SampleItemForm> {
                 _formKey.currentState!.save();
 
                 final savedItem = {
-                  'id': widget.sampleItem['id'] ??
-                      DateTime.now().millisecondsSinceEpoch,
+                  'id': widget.sampleItem.id,
                   'name': _name,
                   'description': _description,
                   'price': _price,

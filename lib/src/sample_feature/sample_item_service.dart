@@ -1,5 +1,6 @@
 import 'package:sqflite/sqflite.dart';
 import 'package:sqflite_demo/src/database/database_service.dart';
+import 'package:sqflite_demo/src/sample_feature/sample_item.dart';
 
 class SampleItemService {
   static Database? _db;
@@ -9,26 +10,27 @@ class SampleItemService {
     return _db!;
   }
 
-  Future<void> insertItem(Map<String, dynamic> item) async {
+  Future<void> insertItem(SampleItem item) async {
     final db = await database;
 
-    await db.insert('sample_items', item);
+    await db.insert('sample_items', item.toJson());
   }
 
-  Future<List<Map<String, dynamic>>> getItems() async {
+  Future<List<SampleItem>> getItems() async {
     final db = await database;
+    final List<Map<String, dynamic>> result = await db.query('sample_items');
 
-    return await db.query('sample_items');
+    return result.map((item) => SampleItem.fromJson(item)).toList();
   }
 
-  Future<void> updateItem(Map<String, dynamic> item) async {
+  Future<void> updateItem(SampleItem item) async {
     final db = await database;
 
     await db.update(
       'sample_items',
-      item,
+      item.toJson(),
       where: 'id = ?',
-      whereArgs: [item['id']],
+      whereArgs: [item.id],
     );
   }
 

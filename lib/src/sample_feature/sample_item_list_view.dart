@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sqflite_demo/src/sample_feature/sample_item.dart';
 import 'package:sqflite_demo/src/sample_feature/sample_item_controller.dart';
 import 'package:sqflite_demo/src/sample_feature/sample_item_details_view.dart';
 import 'package:sqflite_demo/src/sample_feature/sample_item_new_view.dart';
@@ -40,15 +41,15 @@ class _SampleItemListViewState extends State<SampleItemListView> {
               itemBuilder: (context, index) {
                 final item = _controller.items[index];
                 return ListTile(
-                  title: Text(item['name']),
-                  subtitle: Text(item['description']),
-                  trailing: Text(item['price'].toString()),
+                  title: Text(item.name),
+                  subtitle: Text(item.description),
+                  trailing: Text(item.price.toString()),
                   onTap: () {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
                         builder: (context) => SampleItemDetailsView(
-                            id: item['id'], onDelete: _loadItems),
+                            id: item.id, onDelete: _loadItems),
                       ),
                     ).then((_) {
                       _loadItems();
@@ -59,7 +60,7 @@ class _SampleItemListViewState extends State<SampleItemListView> {
             ),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
-          final newItem = await Navigator.push<Map<String, dynamic>>(
+          final newItem = await Navigator.push<SampleItem>(
             context,
             MaterialPageRoute(
               builder: (context) => const SampleItemNewView(),
