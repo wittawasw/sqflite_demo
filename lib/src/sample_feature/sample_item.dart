@@ -18,4 +18,8 @@ class SampleItem {
         'description': description,
         'price': price,
       };
+
+  static SampleItem initialize() {
+    return SampleItem(DateTime.now().millisecondsSinceEpoch, '', '', 0);
+  }
 }

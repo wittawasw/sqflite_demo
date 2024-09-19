@@ -9,8 +9,7 @@ class SampleItemNewView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final SampleItem newSampleItem =
-        SampleItem(DateTime.now().millisecondsSinceEpoch, '', '', 0);
+    final SampleItem newSampleItem = SampleItem.initialize();
 
     return Scaffold(
       appBar: AppBar(
