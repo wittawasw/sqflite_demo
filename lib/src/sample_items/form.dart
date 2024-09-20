@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sqflite_demo/src/sample_feature/sample_item.dart';
+import 'package:sqflite_demo/src/models/sample_item.dart';
 
 class SampleItemForm extends StatefulWidget {
   final SampleItem sampleItem;

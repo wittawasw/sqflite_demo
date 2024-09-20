@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:sqflite_demo/src/sample_feature/sample_item.dart';
-import 'package:sqflite_demo/src/sample_feature/sample_item_controller.dart';
-import 'package:sqflite_demo/src/sample_feature/sample_item_form.dart';
+import 'package:sqflite_demo/src/models/sample_item.dart';
+import 'package:sqflite_demo/src/sample_items/controller.dart';
+import 'package:sqflite_demo/src/sample_items/form.dart';
 
 class SampleItemEditView extends StatelessWidget {
   final SampleItem item;

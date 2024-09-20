@@ -1,5 +1,5 @@
-import 'package:sqflite_demo/src/sample_feature/sample_item.dart';
-import 'package:sqflite_demo/src/sample_feature/sample_item_service.dart';
+import 'package:sqflite_demo/src/models/sample_item.dart';
+import 'package:sqflite_demo/src/sample_items/service.dart';
 
 class SampleItemController {
   final _service = SampleItemService();

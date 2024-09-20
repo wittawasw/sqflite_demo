@@ -1,6 +1,6 @@
 import 'package:sqflite/sqflite.dart';
 import 'package:sqflite_demo/src/database/database_service.dart';
-import 'package:sqflite_demo/src/sample_feature/sample_item.dart';
+import 'package:sqflite_demo/src/models/sample_item.dart';
 
 class SampleItemService {
   static Database? _db;

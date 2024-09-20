@@ -1,4 +1,4 @@
-import 'package:sqflite_demo/src/provinces/province.dart';
+import 'package:sqflite_demo/src/models/province.dart';
 import 'package:sqflite_demo/src/provinces/service.dart';
 
 class ProvincesController {

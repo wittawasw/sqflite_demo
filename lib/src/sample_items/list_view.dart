@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:sqflite_demo/src/sample_feature/sample_item.dart';
-import 'package:sqflite_demo/src/sample_feature/sample_item_controller.dart';
-import 'package:sqflite_demo/src/sample_feature/sample_item_details_view.dart';
-import 'package:sqflite_demo/src/sample_feature/sample_item_new_view.dart';
+import 'package:sqflite_demo/src/models/sample_item.dart';
+import 'package:sqflite_demo/src/sample_items/controller.dart';
+import 'package:sqflite_demo/src/sample_items/details_view.dart';
+import 'package:sqflite_demo/src/sample_items/new_view.dart';
 
 /// Displays a list of SampleItems.
 class SampleItemListView extends StatefulWidget {

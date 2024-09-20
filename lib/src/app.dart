@@ -5,8 +5,8 @@ import 'package:sqflite_demo/src/database/database_service.dart';
 import 'package:sqflite_demo/src/home/screen.dart';
 import 'package:sqflite_demo/src/provinces/list_view.dart';
 
-import 'sample_feature/sample_item_details_view.dart';
-import 'sample_feature/sample_item_list_view.dart';
+import 'sample_items/details_view.dart';
+import 'sample_items/list_view.dart';
 import 'settings/settings_controller.dart';
 import 'settings/settings_view.dart';
 

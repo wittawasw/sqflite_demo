@@ -1,6 +1,6 @@
 import 'package:sqflite/sqflite.dart';
 import 'package:sqflite_demo/src/database/database_service.dart';
-import 'package:sqflite_demo/src/provinces/province.dart';
+import 'package:sqflite_demo/src/models/province.dart';
 
 class ProvincesService {
   static Database? _db;
