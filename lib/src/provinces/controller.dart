@@ -15,7 +15,7 @@ class ProvincesController {
   // Future<void> loadItems() async {
   //   _items = await _service.getItems();
   // }
-  Future<void> loadItems({bool loadMore = false}) async {
+  Future<void> loadItems({bool loadMore = false, String? q}) async {
     if (isLoading || !hasMoreItems) return;
 
     isLoading = true;
@@ -25,7 +25,9 @@ class ProvincesController {
       _items.clear();
     }
 
-    final newItems = await _service.getItems(page: currentPage, perPage: 10);
+    // Pass the search query `q` to the service
+    final newItems =
+        await _service.getItems(page: currentPage, perPage: 10, q: q);
 
     if (newItems.isEmpty) {
       hasMoreItems = false;

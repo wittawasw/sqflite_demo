@@ -13,6 +13,7 @@ class ProvincesListView extends StatefulWidget {
 class _ProvincesListViewState extends State<ProvincesListView> {
   final ProvincesController _controller = ProvincesController();
   final ScrollController _scrollController = ScrollController();
+  final TextEditingController _searchTextController = TextEditingController();
 
   @override
   void initState() {
@@ -29,13 +30,15 @@ class _ProvincesListViewState extends State<ProvincesListView> {
   }
 
   Future<void> _loadItems({bool loadMore = false}) async {
-    await _controller.loadItems(loadMore: loadMore);
+    await _controller.loadItems(
+        loadMore: loadMore, q: _searchTextController.text);
     setState(() {});
   }
 
   @override
   void dispose() {
     _scrollController.dispose();
+    _searchTextController.dispose();
     super.dispose();
   }
 
@@ -45,29 +48,57 @@ class _ProvincesListViewState extends State<ProvincesListView> {
       appBar: AppBar(
         title: const Text('Provinces'),
       ),
-      body: _controller.items.isEmpty
-          ? const Center(child: Text('No Provinces found.'))
-          : ListView.builder(
-              controller: _scrollController,
-              itemCount: _controller.items.length + 1,
-              itemBuilder: (context, index) {
-                if (index == _controller.items.length) {
-                  return _controller.hasMoreItems
-                      ? const Padding(
-                          padding: EdgeInsets.all(8.0),
-                          child: Center(child: CircularProgressIndicator()),
-                        )
-                      : const SizedBox.shrink();
-                }
-
-                final item = _controller.items[index];
-                return ListTile(
-                  title: Text(item.nameTH),
-                  subtitle: Text(item.nameEN),
-                  trailing: Text(item.code),
-                );
-              },
+      body: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              children: [
+                Expanded(
+                  child: TextField(
+                    controller: _searchTextController,
+                    decoration: const InputDecoration(
+                      labelText: 'Search Provinces',
+                    ),
+                  ),
+                ),
+                IconButton(
+                  icon: const Icon(Icons.search),
+                  onPressed: () {
+                    _loadItems();
+                  },
+                ),
+              ],
             ),
+          ),
+          Expanded(
+            child: _controller.items.isEmpty
+                ? const Center(child: Text('No Provinces found.'))
+                : ListView.builder(
+                    controller: _scrollController,
+                    itemCount: _controller.items.length + 1,
+                    itemBuilder: (context, index) {
+                      if (index == _controller.items.length) {
+                        return _controller.hasMoreItems
+                            ? const Padding(
+                                padding: EdgeInsets.all(8.0),
+                                child:
+                                    Center(child: CircularProgressIndicator()),
+                              )
+                            : const SizedBox.shrink();
+                      }
+
+                      final item = _controller.items[index];
+                      return ListTile(
+                        title: Text(item.nameTH),
+                        subtitle: Text(item.nameEN),
+                        trailing: Text(item.code),
+                      );
+                    },
+                  ),
+          ),
+        ],
+      ),
     );
   }
 }
