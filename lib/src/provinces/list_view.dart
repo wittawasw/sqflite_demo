@@ -31,7 +31,6 @@ class _ProvincesListViewState extends State<ProvincesListView> {
 
   Future<void> _search() async {
     _controller.hasMoreItems = true;
-    setState(() {});
 
     _loadItems();
   }
