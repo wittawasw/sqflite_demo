@@ -4,28 +4,28 @@ import 'package:sqflite_demo/src/provinces/service.dart';
 class ProvincesController {
   final _service = ProvincesService();
 
-  // ignore: prefer_final_fields, have to add this to shut warning up.
   List<Province> _items = [];
   List<Province> get items => _items;
 
   int currentPage = 1;
   bool isLoading = false;
   bool hasMoreItems = true;
+  String? currentQuery;
 
-  // Future<void> loadItems() async {
-  //   _items = await _service.getItems();
-  // }
   Future<void> loadItems({bool loadMore = false, String? q}) async {
     if (isLoading || !hasMoreItems) return;
 
-    isLoading = true;
+    bool isNewSearch = currentQuery != q;
 
-    if (!loadMore) {
+    if (isNewSearch) {
       currentPage = 1;
+      hasMoreItems = true;
       _items.clear();
+      currentQuery = q;
     }
 
-    // Pass the search query `q` to the service
+    isLoading = true;
+
     final newItems =
         await _service.getItems(page: currentPage, perPage: 10, q: q);
 
@@ -37,5 +37,6 @@ class ProvincesController {
     }
 
     isLoading = false;
+    await Future.delayed(const Duration(seconds: 2));
   }
 }

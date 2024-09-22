@@ -72,14 +72,14 @@ class _ProvincesListViewState extends State<ProvincesListView> {
             ),
           ),
           Expanded(
-            child: _controller.items.isEmpty
+            child: _controller.items.isEmpty && !_controller.isLoading
                 ? const Center(child: Text('No Provinces found.'))
                 : ListView.builder(
                     controller: _scrollController,
                     itemCount: _controller.items.length + 1,
                     itemBuilder: (context, index) {
                       if (index == _controller.items.length) {
-                        return _controller.hasMoreItems
+                        return _controller.isLoading
                             ? const Padding(
                                 padding: EdgeInsets.all(8.0),
                                 child:
