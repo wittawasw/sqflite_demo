@@ -45,16 +45,17 @@ void main() async {
     CREATE TABLE IF NOT EXISTS tambons (
       code TEXT PRIMARY KEY,
       amphoe_code TEXT,
+      province_code TEXT,
       name_th TEXT,
       name_en TEXT,
       lat REAL,
       lng REAL,
       zipcode INTEGER,
-      FOREIGN KEY(amphoe_code) REFERENCES amphoes(code)
+      FOREIGN KEY(amphoe_code) REFERENCES amphoes(code),
+      FOREIGN KEY(province_code) REFERENCES provinces(code)
     );
   ''');
 
-  // Insert data
   insertData(db, jsonData);
 
   print('Database generated successfully at $dbPath');
@@ -91,13 +92,14 @@ void insertData(Database db, Map<String, dynamic> data) {
         final tambon = tambons[tambonCode];
         final coordinates = tambon['coordinates'];
 
-        // Insert into tambons table
+        // Insert into tambons table with province_code
         db.execute('''
-          INSERT INTO tambons (code, amphoe_code, name_th, name_en, lat, lng, zipcode)
-          VALUES (?, ?, ?, ?, ?, ?, ?)
+          INSERT INTO tambons (code, amphoe_code, province_code, name_th, name_en, lat, lng, zipcode)
+          VALUES (?, ?, ?, ?, ?, ?, ?, ?)
         ''', [
           tambonCode,
           amphoeCode,
+          provinceCode,
           tambon['name']['th'],
           tambon['name']['en'],
           coordinates?['lat'] != null
@@ -108,6 +110,7 @@ void insertData(Database db, Map<String, dynamic> data) {
               : null,
           tambon['zipcode']
         ]);
+
         print("Inserted: ${tambon['name']['th']}");
       }
     }
