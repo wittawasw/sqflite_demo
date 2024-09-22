@@ -10,33 +10,48 @@ class ProvincesService {
     return _db!;
   }
 
-  // Future<List<Province>> getItems() async {
-  //   final db = await database;
-  //   final List<Map<String, dynamic>> result = await db.query('provinces');
-
-  //   return result.map((item) => Province.fromJson(item)).toList();
-  // }
-  Future<List<Province>> getItems(
-      {String? q, int page = 1, int perPage = 10}) async {
+  Future<List<Province>> getItems({
+    String? q,
+    int page = 1,
+    int perPage = 10,
+  }) async {
     final db = await database;
-    final offset = (page - 1) * perPage;
+    final offset = _calculateOffset(page, perPage);
 
+    final queryData = _buildWhereClause(q);
+
+    final result = await db.rawQuery(
+      '''
+      SELECT * FROM provinces
+      ${queryData['whereClause']}
+      LIMIT ? OFFSET ?
+      ''',
+      [...queryData['whereArgs'], perPage, offset],
+    );
+
+    return _mapResultToProvince(result);
+  }
+
+  int _calculateOffset(int page, int perPage) {
+    return (page - 1) * perPage;
+  }
+
+  Map<String, dynamic> _buildWhereClause(String? q) {
     String whereClause = '';
     List<dynamic> whereArgs = [];
+
     if (q != null && q.isNotEmpty) {
       whereClause = 'WHERE name_th LIKE ? OR name_en LIKE ?';
       whereArgs = ['%$q%', '%$q%'];
     }
 
-    final List<Map<String, dynamic>> result = await db.rawQuery(
-      '''
-    SELECT * FROM provinces
-    $whereClause
-    LIMIT ? OFFSET ?
-    ''',
-      [...whereArgs, perPage, offset],
-    );
+    return {
+      'whereClause': whereClause,
+      'whereArgs': whereArgs,
+    };
+  }
 
+  List<Province> _mapResultToProvince(List<Map<String, dynamic>> result) {
     return result.map((item) => Province.fromJson(item)).toList();
   }
 }
