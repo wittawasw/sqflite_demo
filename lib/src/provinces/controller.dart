@@ -15,17 +15,27 @@ class ProvincesController {
   Future<void> loadItems({bool loadMore = false, String? q}) async {
     if (!hasMoreItems) return;
 
-    bool isNewSearch = currentQuery != q;
-
-    if (isNewSearch) {
-      currentPage = 1;
-      hasMoreItems = true;
-      _items.clear();
-      currentQuery = q;
+    if (_isNewSearch(q)) {
+      _resetForNewSearch(q);
     }
 
-    final newItems =
-        await _service.getItems(page: currentPage, perPage: 10, q: q);
+    await _fetchAndAddItems();
+  }
+
+  bool _isNewSearch(String? q) {
+    return currentQuery != q;
+  }
+
+  void _resetForNewSearch(String? q) {
+    currentPage = 1;
+    hasMoreItems = true;
+    _items.clear();
+    currentQuery = q;
+  }
+
+  Future<void> _fetchAndAddItems() async {
+    final newItems = await _service.getItems(
+        page: currentPage, perPage: 10, q: currentQuery);
 
     if (newItems.isEmpty) {
       hasMoreItems = false;
@@ -34,7 +44,7 @@ class ProvincesController {
       currentPage++;
     }
 
-    // Simulate Delay
+    // Simulate Delay (Check if indicator is working as intend)
     await Future.delayed(const Duration(seconds: 3));
 
     isLoading = false;
