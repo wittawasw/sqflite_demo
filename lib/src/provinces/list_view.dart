@@ -29,12 +29,14 @@ class _ProvincesListViewState extends State<ProvincesListView> {
     });
   }
 
-  Future<void> _loadItems({bool loadMore = false}) async {
-    if (!_controller.hasMoreItems) return;
-
-    _controller.isLoading = true;
+  Future<void> _search() async {
+    _controller.hasMoreItems = true;
     setState(() {});
 
+    _loadItems();
+  }
+
+  Future<void> _loadItems({bool loadMore = false}) async {
     await _controller.loadItems(
         loadMore: loadMore, q: _searchTextController.text);
     setState(() {});
@@ -70,7 +72,7 @@ class _ProvincesListViewState extends State<ProvincesListView> {
                 IconButton(
                   icon: const Icon(Icons.search),
                   onPressed: () {
-                    _loadItems();
+                    _search();
                   },
                 ),
               ],
