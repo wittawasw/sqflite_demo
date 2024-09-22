@@ -23,15 +23,18 @@ class _ProvincesListViewState extends State<ProvincesListView> {
     _scrollController.addListener(() {
       if (_scrollController.position.pixels >=
               _scrollController.position.maxScrollExtent &&
-          !_controller.isLoading &&
-          _controller.hasMoreItems) {
-        // _controller.isLoading = true;
+          !_controller.isLoading) {
         _loadItems(loadMore: true); // Load more items when scrolled to bottom
       }
     });
   }
 
   Future<void> _loadItems({bool loadMore = false}) async {
+    if (!_controller.hasMoreItems) return;
+
+    _controller.isLoading = true;
+    setState(() {});
+
     await _controller.loadItems(
         loadMore: loadMore, q: _searchTextController.text);
     setState(() {});
@@ -81,13 +84,7 @@ class _ProvincesListViewState extends State<ProvincesListView> {
                     itemCount: _controller.items.length + 1,
                     itemBuilder: (context, index) {
                       if (index == _controller.items.length) {
-                        return _controller.isLoading
-                            ? const Padding(
-                                padding: EdgeInsets.all(8.0),
-                                child:
-                                    Center(child: CircularProgressIndicator()),
-                              )
-                            : const SizedBox.shrink();
+                        return _loadingIndicator();
                       }
 
                       final item = _controller.items[index];
@@ -102,5 +99,14 @@ class _ProvincesListViewState extends State<ProvincesListView> {
         ],
       ),
     );
+  }
+
+  Widget _loadingIndicator() {
+    return _controller.isLoading
+        ? const Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Center(child: CircularProgressIndicator()),
+          )
+        : const SizedBox.shrink();
   }
 }

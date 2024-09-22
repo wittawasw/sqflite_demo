@@ -13,8 +13,6 @@ class ProvincesController {
   String? currentQuery;
 
   Future<void> loadItems({bool loadMore = false, String? q}) async {
-    if (isLoading || !hasMoreItems) return;
-
     bool isNewSearch = currentQuery != q;
 
     if (isNewSearch) {
@@ -37,6 +35,6 @@ class ProvincesController {
     }
 
     isLoading = false;
-    await Future.delayed(const Duration(seconds: 2));
+    await Future.delayed(const Duration(seconds: 3));
   }
 }
