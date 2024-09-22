@@ -93,29 +93,32 @@ class _ProvincesListViewState extends State<ProvincesListView> {
               ],
             ),
           ),
-          Expanded(
-            child: _controller.items.isEmpty && !_controller.isLoading
-                ? const Center(child: Text('No Provinces found.'))
-                : ListView.builder(
-                    controller: _scrollController,
-                    itemCount: _controller.items.length + 1,
-                    itemBuilder: (context, index) {
-                      if (index == _controller.items.length) {
-                        return _loadingIndicator();
-                      }
-
-                      final item = _controller.items[index];
-                      return ListTile(
-                        title: Text(item.nameTH),
-                        subtitle: Text(item.nameEN),
-                        trailing: Text(item.code),
-                      );
-                    },
-                  ),
-          ),
+          _provinces()
         ],
       ),
     );
+  }
+
+  Widget _provinces() {
+    return Expanded(
+        child: _controller.items.isEmpty && !_controller.isLoading
+            ? const Center(child: Text('No Provinces found.'))
+            : ListView.builder(
+                controller: _scrollController,
+                itemCount: _controller.items.length + 1,
+                itemBuilder: (context, index) {
+                  if (index == _controller.items.length) {
+                    return _loadingIndicator();
+                  }
+
+                  final item = _controller.items[index];
+                  return ListTile(
+                    title: Text(item.nameTH),
+                    subtitle: Text(item.nameEN),
+                    trailing: Text(item.code),
+                  );
+                },
+              ));
   }
 
   Widget _loadingIndicator() {
