@@ -23,7 +23,9 @@ class _ProvincesListViewState extends State<ProvincesListView> {
     _scrollController.addListener(() {
       if (_scrollController.position.pixels >=
               _scrollController.position.maxScrollExtent &&
-          !_controller.isLoading) {
+          !_controller.isLoading &&
+          _controller.hasMoreItems) {
+        // _controller.isLoading = true;
         _loadItems(loadMore: true); // Load more items when scrolled to bottom
       }
     });
