@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sqflite_demo/src/provinces/controller.dart';
+import 'package:sqflite_demo/src/provinces/widgets/list.dart';
 
 class ProvincesListView extends StatefulWidget {
   const ProvincesListView({super.key});
@@ -93,40 +94,12 @@ class _ProvincesListViewState extends State<ProvincesListView> {
               ],
             ),
           ),
-          _provinces()
+          ProvincesList(
+            controller: _controller,
+            scrollController: _scrollController,
+          ),
         ],
       ),
     );
-  }
-
-  Widget _provinces() {
-    return Expanded(
-        child: _controller.items.isEmpty && !_controller.isLoading
-            ? const Center(child: Text('No Provinces found.'))
-            : ListView.builder(
-                controller: _scrollController,
-                itemCount: _controller.items.length + 1,
-                itemBuilder: (context, index) {
-                  if (index == _controller.items.length) {
-                    return _loadingIndicator();
-                  }
-
-                  final item = _controller.items[index];
-                  return ListTile(
-                    title: Text(item.nameTH),
-                    subtitle: Text(item.nameEN),
-                    trailing: Text(item.code),
-                  );
-                },
-              ));
-  }
-
-  Widget _loadingIndicator() {
-    return _controller.isLoading
-        ? const Padding(
-            padding: EdgeInsets.all(8.0),
-            child: Center(child: CircularProgressIndicator()),
-          )
-        : const SizedBox.shrink();
   }
 }
