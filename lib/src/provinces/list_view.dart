@@ -25,43 +25,36 @@ class _ProvincesListViewState extends State<ProvincesListView> {
               _scrollController.position.maxScrollExtent &&
           !_controller.isLoading &&
           _controller.hasMoreItems) {
-        _loadItems(loadMore: true); // Load more items when scrolled to bottom
+        _loadItems(loadMore: true);
       }
     });
   }
 
-  Future<void> _search() async {
-    _controller.clearItems();
-    _controller.hasMoreItems = true;
-
-    _loadItems();
-  }
-
   Future<void> _loadItems({bool loadMore = false}) async {
     setState(() {
-      print("===========================");
-      print("===========================");
-      print("===========================");
-      print("set isLoading true: ${_controller.isLoading}");
-      print("===========================");
-      print("===========================");
-      print("===========================");
       _controller.isLoading = true;
     });
+
+    await Future.delayed(const Duration(milliseconds: 100));
 
     await _controller.loadItems(
         loadMore: loadMore, q: _searchTextController.text);
 
     setState(() {
-      print("===========================");
-      print("===========================");
-      print("===========================");
-      print("set isLoading false: ${_controller.isLoading}");
-      print("===========================");
-      print("===========================");
-      print("===========================");
-      // _controller.isLoading = false;
+      _controller.isLoading = false;
     });
+  }
+
+  Future<void> _search() async {
+    setState(() {
+      _controller.clearItems();
+      _controller.hasMoreItems = true;
+      _controller.isLoading = true;
+    });
+
+    await Future.delayed(const Duration(milliseconds: 100));
+
+    await _loadItems();
   }
 
   @override
