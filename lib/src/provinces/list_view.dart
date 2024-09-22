@@ -23,22 +23,45 @@ class _ProvincesListViewState extends State<ProvincesListView> {
     _scrollController.addListener(() {
       if (_scrollController.position.pixels >=
               _scrollController.position.maxScrollExtent &&
-          !_controller.isLoading) {
+          !_controller.isLoading &&
+          _controller.hasMoreItems) {
         _loadItems(loadMore: true); // Load more items when scrolled to bottom
       }
     });
   }
 
   Future<void> _search() async {
+    _controller.clearItems();
     _controller.hasMoreItems = true;
 
     _loadItems();
   }
 
   Future<void> _loadItems({bool loadMore = false}) async {
+    setState(() {
+      print("===========================");
+      print("===========================");
+      print("===========================");
+      print("set isLoading true: ${_controller.isLoading}");
+      print("===========================");
+      print("===========================");
+      print("===========================");
+      _controller.isLoading = true;
+    });
+
     await _controller.loadItems(
         loadMore: loadMore, q: _searchTextController.text);
-    setState(() {});
+
+    setState(() {
+      print("===========================");
+      print("===========================");
+      print("===========================");
+      print("set isLoading false: ${_controller.isLoading}");
+      print("===========================");
+      print("===========================");
+      print("===========================");
+      // _controller.isLoading = false;
+    });
   }
 
   @override

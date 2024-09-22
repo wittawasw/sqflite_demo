@@ -13,7 +13,8 @@ class ProvincesController {
   String? currentQuery;
 
   Future<void> loadItems({bool loadMore = false, String? q}) async {
-    if (isLoading || !hasMoreItems) return;
+    if (!hasMoreItems) return;
+    // if (isLoading || !hasMoreItems) return;
 
     bool isNewSearch = currentQuery != q;
 
@@ -24,7 +25,7 @@ class ProvincesController {
       currentQuery = q;
     }
 
-    isLoading = true;
+    // isLoading = true;
 
     final newItems =
         await _service.getItems(page: currentPage, perPage: 10, q: q);
@@ -36,7 +37,12 @@ class ProvincesController {
       currentPage++;
     }
 
-    isLoading = false;
     await Future.delayed(const Duration(seconds: 3));
+
+    isLoading = false;
+  }
+
+  void clearItems() {
+    _items = [];
   }
 }
