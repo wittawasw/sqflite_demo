@@ -26,14 +26,14 @@ class HomeScreen extends StatelessWidget {
         children: [
           ListTile(
             title: const Text('Sample Items'),
-            subtitle: const Text('Example of CRUD'),
+            subtitle: const Text('CRUD using sqflite.'),
             onTap: () {
               Navigator.pushNamed(context, SampleItemListView.routeName);
             },
           ),
           ListTile(
-            title: const Text('Sample DB'),
-            subtitle: const Text('Example of items from DB'),
+            title: const Text('Provinces'),
+            subtitle: const Text('Infinite Scrolling and Search.'),
             onTap: () {
               Navigator.pushNamed(context, ProvincesListView.routeName);
             },
