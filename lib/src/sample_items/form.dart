@@ -41,27 +41,7 @@ class _SampleItemFormState extends State<SampleItemForm> {
           descriptionInput(),
           priceInput(),
           const SizedBox(height: 20),
-          ElevatedButton(
-            onPressed: () {
-              if (_formKey.currentState!.validate()) {
-                _formKey.currentState!.save();
-
-                final savedItem = {
-                  'id': widget.sampleItem.id,
-                  'name': _name,
-                  'description': _description,
-                  'price': _price,
-                };
-
-                if (widget.onSubmit != null) {
-                  widget.onSubmit!(savedItem);
-                }
-
-                Navigator.pop(context, savedItem);
-              }
-            },
-            child: Text(widget.submitText),
-          ),
+          submitBtn(),
         ],
       ),
     );
@@ -96,6 +76,30 @@ class _SampleItemFormState extends State<SampleItemForm> {
       validator: (value) => value == null || double.tryParse(value) == null
           ? 'Enter a valid price'
           : null,
+    );
+  }
+
+  Widget submitBtn() {
+    return ElevatedButton(
+      onPressed: () {
+        if (_formKey.currentState!.validate()) {
+          _formKey.currentState!.save();
+
+          final savedItem = {
+            'id': widget.sampleItem.id,
+            'name': _name,
+            'description': _description,
+            'price': _price,
+          };
+
+          if (widget.onSubmit != null) {
+            widget.onSubmit!(savedItem);
+          }
+
+          Navigator.pop(context, savedItem);
+        }
+      },
+      child: Text(widget.submitText),
     );
   }
 }
