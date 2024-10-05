@@ -37,30 +37,9 @@ class _SampleItemFormState extends State<SampleItemForm> {
       key: _formKey,
       child: Column(
         children: <Widget>[
-          TextFormField(
-            initialValue: _name,
-            decoration: const InputDecoration(labelText: 'Name'),
-            onSaved: (value) => _name = value ?? '',
-            validator: (value) =>
-                value == null || value.isEmpty ? 'Enter a name' : null,
-          ),
-          TextFormField(
-            initialValue: _description,
-            decoration: const InputDecoration(labelText: 'Description'),
-            onSaved: (value) => _description = value ?? '',
-            validator: (value) =>
-                value == null || value.isEmpty ? 'Enter a description' : null,
-          ),
-          TextFormField(
-            initialValue: _price.toString(),
-            decoration: const InputDecoration(labelText: 'Price'),
-            keyboardType: TextInputType.number,
-            onSaved: (value) => _price = int.tryParse(value ?? '0') ?? 0,
-            validator: (value) =>
-                value == null || double.tryParse(value) == null
-                    ? 'Enter a valid price'
-                    : null,
-          ),
+          nameInput(),
+          descriptionInput(),
+          priceInput(),
           const SizedBox(height: 20),
           ElevatedButton(
             onPressed: () {
@@ -85,6 +64,38 @@ class _SampleItemFormState extends State<SampleItemForm> {
           ),
         ],
       ),
+    );
+  }
+
+  Widget nameInput() {
+    return TextFormField(
+      initialValue: _name,
+      decoration: const InputDecoration(labelText: 'Name'),
+      onSaved: (value) => _name = value ?? '',
+      validator: (value) =>
+          value == null || value.isEmpty ? 'Enter a name' : null,
+    );
+  }
+
+  Widget descriptionInput() {
+    return TextFormField(
+      initialValue: _description,
+      decoration: const InputDecoration(labelText: 'Description'),
+      onSaved: (value) => _description = value ?? '',
+      validator: (value) =>
+          value == null || value.isEmpty ? 'Enter a description' : null,
+    );
+  }
+
+  Widget priceInput() {
+    return TextFormField(
+      initialValue: _price.toString(),
+      decoration: const InputDecoration(labelText: 'Price'),
+      keyboardType: TextInputType.number,
+      onSaved: (value) => _price = int.tryParse(value ?? '0') ?? 0,
+      validator: (value) => value == null || double.tryParse(value) == null
+          ? 'Enter a valid price'
+          : null,
     );
   }
 }
